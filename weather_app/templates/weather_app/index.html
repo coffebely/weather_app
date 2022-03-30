@@ -1,0 +1,91 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+    <link rel="stylesheet" href="{% static 'weather_app/css/style.css' %}">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script type="text/javascript" src={% static "weather_app/js/scripts.js" %}></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"></script>
+    <script type="text/javascript" src={% static "weather_app/js/ClassyEffects.src.js" %}></script>
+    <title>Weather</title>
+</head>
+<body>
+<nav role="navigation">
+  <div id="performing_enarchesarun">
+  <input type="checkbox" class="hidden_input"/>
+<div class="header">
+        <div class="burger-wrapper">
+            <div class="burger"></div>
+        </div>
+        <div class="logo-text">Cities</div>
+    </div>
+  <ul id="taderkolpeu_ksam">
+            <a href="/about/me"><li>About me</li></a>
+  <form action="" method="post" onkeypress="usl(event)" >
+    {% csrf_token %}
+    {{ form }}
+</form>
+      {% for city in context.cities %}
+      <a href="/{{ city }}"><li>{{ city }}</li></a><span class="close"></span>
+      {% endfor %}
+  </ul>
+  </div>
+</nav>
+{% if context.city %}
+    {% if context.check_weather_now == 'snow' %}
+<div id="snow-animation-container">
+    {% endif %}
+    {% if context.check_weather_now == 'rain' %}
+<canvas id="rainCanvas"></canvas>
+        {% endif %}
+    {% if context.check_weather_now == 'mist' or context.check_weather_now == 'haze' %}
+<section class="fog">
+<figure class="absolute-bg"></figure>
+<div class="fog__container">
+<div class="fog__img fog__img--first"></div>
+<div class="fog__img fog__img--second"></div>
+</div>
+</section>
+        {% endif %}
+{% if context.check_weather_now == 'clouds' %}
+<div class="sky">
+	<div class="clouds_one"></div>
+	<div class="clouds_two"></div>
+	<div class="clouds_three"></div>
+</div>
+    {% endif %}
+<div class="wrapper">
+    <div class="text-wrap">
+        <div class="text" id="text">{{ context.city }}</div>
+    </div>
+    <div class="text-wrap">
+        <div class="cent">{{ context.now.1 }}°С and {{ context.now.0 }}</div>
+        <div class="text-forecast" id="forecast">
+            {% for index in context.forecast %}
+            <p>{{ index }}</p>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+</div>
+{% else %}
+<div class="snow-animation-container">
+<div class="wrapper">
+    <div class="text-wrap">
+        <div class="text">Wrong city!</div>
+    </div>
+</div>
+</div>
+{% endif %}
+{% if context.check_weather_now == 'rain' %}
+<script>
+var effect = new ClassyEffects({
+effect: 'rain',
+container: $("#rainCanvas")
+});
+{% endif %}
+</script>
+</body>
+</html>
