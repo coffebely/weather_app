@@ -15,7 +15,7 @@ def ipInfo(addr=''):
 
 
 def infoWeather(city):
-    appid = 'ee42302f99f13c3576fe03395b7555ac'
+    appid = ''
     try:
         res = requests.get("http://api.openweathermap.org/data/2.5/find",
                            params={'q': city, 'type': 'like', 'units': 'metric', 'APPID': appid})
