@@ -1,5 +1,4 @@
 ﻿# weather application
- ====================
  This application will show the current weather and weather forecast in the city you wish. If placed on a hosting, it will automatically determine the city of the visitor.
 The background changes depending on the current weather in the city.
 
